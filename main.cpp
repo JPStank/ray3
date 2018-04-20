@@ -1,20 +1,25 @@
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
+#include <ctime>
 
 int main(int argc, char* argv[])
 {
-	int N = 1000;
+	srand((unsigned int)time(nullptr));
+
 	int inside_circle = 0;
-	for (int i = 0; i < N; i++)
+	unsigned long long runs = 0;
+	while (1)
 	{
-		float x = 2.0f * ((float)rand() / (float)RAND_MAX) - 1.0f;
-		float y = 2.0f * ((float)rand() / (float)RAND_MAX) - 1.0f;
-		if (x*x + y*y < 1)
+		runs++;
+		double x = 2.0 * ((double)rand() / (double)RAND_MAX) - 1.0;
+		double y = 2.0 * ((double)rand() / (double)RAND_MAX) - 1.0;
+		if (x*x + y*y < 1.0)
 			inside_circle++;
+		if (runs % 100000 == 0)
+			std::cout << "Estimate of Pi = " << 4.0 * double(inside_circle) / runs << "\n";
 	}
 
-	std::cout << "Estimate of Pi = " << 4 * float(inside_circle) / N << "\n";
 
 	return 0;
 }
